@@ -1,5 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% pageContext.setAttribute("newLineChar", "\n"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +17,7 @@
 		</div>
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="" method="post">
+				<form id="search_form" action="board" method="get">
 					<input type="text" id="kwd" name="kwd" value="">
 					<input type="submit" value="찾기">
 				</form>
@@ -26,41 +29,27 @@
 						<th>조회수</th>
 						<th>작성일</th>
 						<th>&nbsp;</th>
-					</tr>				
+					</tr>
+					<c:forEach items="${list }" var="vo" varStatus="status">
 					<tr>
-						<td>1</td>
-						<td><a href="">게시글입니다.</a></td>
-						<td>안대혁</td>
-						<td>1000</td>
-						<td>2015-05-13</td>
+						<td>${status.count }</td>
+						<td><a href="board?a=view&no=${vo.no }">${vo.title }</a></td>
+						<td>${vo.memberName }</td>
+						<td>${vo.viewCount }</td>
+						<td>${vo.regDate }</td>
 						<td>
-							<a href="" class="del">삭제</a>
+							<c:if test="${authMember.no == vo.memberNo }">
+							<a href="board?a=delete&no=${vo.no }" class="del">삭제</a>
+							</c:if>
 						</td>
 					</tr>
-					<tr>
-						<td>2</td>
-						<td><a href="">게시글입니다.</a></td>
-						<td>안대혁</td>
-						<td>1000</td>
-						<td>2015-05-13</td>
-						<td>
-							<a href="" class="del">삭제</a>
-						</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td><a href="">게시글입니다.</a></td>
-						<td>안대혁</td>
-						<td>1000</td>
-						<td>2015-05-13</td>
-						<td>
-							<a href="" class="del">삭제</a>
-						</td>
-					</tr>										
+					</c:forEach>	
 				</table>
+				<c:if test="${ not empty authMember }" >
 				<div class="bottom">
-					<a href="" id="new-book">글쓰기</a>
-				</div>				
+					<a href="?a=write" id="new-book">글쓰기</a>
+				</div>
+				</c:if>				
 			</div>
 		</div>
 		<div id="navigation">

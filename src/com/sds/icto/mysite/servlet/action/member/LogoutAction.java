@@ -21,7 +21,7 @@ public class LogoutAction implements Action {
 		session.removeAttribute( "authMember" );
 		session.invalidate();
 		
-		response.sendRedirect( "/mysite" );
+		response.sendRedirect( "/mysite/" );
 	}
 
 }

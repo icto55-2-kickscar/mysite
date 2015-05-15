@@ -1,5 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% pageContext.setAttribute("newLineChar", "\n"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,28 +23,22 @@
 					</tr>
 					<tr>
 						<td class="label">제목</td>
-						<td>안녕하세요</td>
+						<td>${vo.title }</td>
 					</tr>
 					<tr>
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-							즐건 과제 되세요~<br>
-							즐건 과제 되세요~<br>
-							즐건 과제 되세요~<br>
-							즐건 과제 되세요~<br>
-							즐건 과제 되세요~<br>
-							즐건 과제 되세요~<br>
-							즐건 과제 되세요~<br>
-							즐건 과제 되세요~<br>
-							즐건 과제 되세요~<br>
+							${fn:replace( vo.content, newLineChar, "<br>" ) }
 							</div>
 						</td>
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="">글목록</a>
-					<a href="">글수정</a>
+					<a href="board">글목록</a>
+					<c:if test="${authMember.no == vo.memberNo }">
+					<a href="board?a=modify&no=${vo.no }">글수정</a>
+					</c:if>
 				</div>
 			</div>
 		</div>
