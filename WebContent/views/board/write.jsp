@@ -39,7 +39,9 @@
 			</div>
 		</div>
 		<div id="navigation">
-			<c:import url="/views/include/navigation_board.jsp" />
+			<c:import url="/views/include/navigation.jsp">
+				<c:param name="type">board</c:param>
+			</c:import>
 		</div>
 		<div id="footer">
 			<c:import url="/views/include/footer.jsp" />
